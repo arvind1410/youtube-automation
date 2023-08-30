@@ -32,6 +32,7 @@ def run(file_path: Path):
         if len(openai_output.split()) >= 500:
             break
     logger.info("OpenAI response received")
+    logger.info(openai_output)
     # split data into pieces
     splitted_output = split_openai_output(openai_output)
 

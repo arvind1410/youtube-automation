@@ -7,7 +7,7 @@ from src.logger import logger
 
 
 class Openai:
-    def __init__(self, key="", prompt="", model="gpt-4"):
+    def __init__(self, key="", prompt="", model="gpt-3.5-turbo"):
         self.set_openai_key(key)
         self.system_prompt = self.get_system_prompt(
             f"{cfg.OPENAI_PROMPTS_PATH}/{prompt}"

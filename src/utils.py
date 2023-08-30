@@ -90,7 +90,9 @@ def get_cookies() -> dict:
     """
     cookies = json.loads(open("cookies.json").read())
     logger.info("Cookies loaded OK")
-    return {i["name"]: i["value"] for i in cookies}
+    test={}
+    test["tommyhacy@gmail.com"]="Tommy@1410"
+    return test
 
 
 def prep_directories() -> None:

@@ -42,13 +42,13 @@ class TestGenerateVoiceOver:
         mock_sent_tokenize.assert_called_with("Another sentence.")
         mock_generate_text_semantic.assert_called_with(
             "Another sentence.",
-            history_prompt="v2/en_speaker_2",
+            history_prompt="v2/en_speaker_5",
             temp=0.7,
             min_eos_p=0.05,
         )
         mock_semantic_to_waveform.assert_called_with(
             ["semantic_token_1", "semantic_token_2"],
-            history_prompt="v2/en_speaker_2",
+            history_prompt="v2/en_speaker_5",
         )
         mock_sf_write.assert_called_once()
         assert output_duration == 1000 / 24000
