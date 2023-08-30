@@ -36,14 +36,15 @@ def run(file_path: Path):
     # split data into pieces
     splitted_output = split_openai_output(openai_output)
 
+    file_output_dir = r"{cfg.PROCESS_DIR}/{file_path.stem}"
     # save video metadata into folder
     generate_video_meta(splitted_output, file_output_dir)
 
     # generate audio
-    audio_duration = generate_voice_over(splitted_output, file_output_dir)
+    # audio_duration = generate_voice_over(splitted_output, file_output_dir)
 
     # save videos for further use
-    save_videos(splitted_output, audio_duration, file_output_dir, cookies, cfg.YT_PROBA)
+    save_videos(splitted_output, 40.00, file_output_dir, cookies, cfg.YT_PROBA)
 
     # generate video
     # make_video(
