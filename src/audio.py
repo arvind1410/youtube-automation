@@ -43,9 +43,9 @@ def generate_voice_over(splitted_output: list, output_dir: str) -> float:
         )
         pieces += [audio_array, silence.copy()]
     output = np.concatenate(pieces)
-    file_path = r"{output_dir}/voiceover.wav"
+    file_path = f"{output_dir}/voiceover.wav"
     sf.write(file_path, output, SAMPLE_RATE)
-    logger.info(r"Voice over saved OK {file_path}")
+    logger.info(f"Voice over saved OK {file_path}")
     # calculate duration
     temp = sf.SoundFile(file_path)
     return temp.frames / temp.samplerate

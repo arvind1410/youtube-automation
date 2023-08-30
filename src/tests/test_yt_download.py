@@ -15,7 +15,7 @@ class TestDownloadYTVideo:
         download_yt_video(7, file_output_dir, n_paragraph, query)
 
         mock_search_and_dl.assert_called_once_with(
-            query, r"{file_output_dir}/videos/yt"
+            query, f"{file_output_dir}/videos/yt"
         )
         mock_get_clips.assert_called_once_with(
             mock_search_and_dl.return_value, 1, 7, file_output_dir, n_paragraph

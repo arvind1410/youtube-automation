@@ -38,7 +38,7 @@ def upload_video(
     )
 
     # Print the video upload response
-    logger.info(r"Video uploaded successfully. Video ID: {response['id']}")
+    logger.info(f"Video uploaded successfully. Video ID: {response['id']}")
 
 
 def get_yt_credentials(cred_path: str):
