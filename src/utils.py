@@ -46,7 +46,7 @@ def split_openai_output(raw_text: str, sep: str = "###") -> list[Elem]:
 
 def generate_video_meta(splitted_output: list, file_output_dir: str):
     logger.info("Generating video meta...")
-    os.makedirs(f"{file_output_dir}/videos", exist_ok=True)
+    os.makedirs(r"{file_output_dir}/videos", exist_ok=True)
 
     meta = "\n\n".join(
         (item.text for item in splitted_output if item.type in ("title", "description"))
@@ -55,10 +55,10 @@ def generate_video_meta(splitted_output: list, file_output_dir: str):
         (item.text for item in splitted_output if item.type == "text")
     )
 
-    with open(f"{file_output_dir}/meta.txt", "w") as f:
+    with open(r"{file_output_dir}/meta.txt", "w") as f:
         f.write(meta)
 
-    with open(f"{file_output_dir}/video_text.txt", "w") as f:
+    with open(r"{file_output_dir}/video_text.txt", "w") as f:
         f.write(video_text)
     logger.info("Meta saved OK")
 
@@ -102,5 +102,5 @@ def prep_directories() -> None:
     except Exception as e:
         logger.error(e)
     os.makedirs(cfg.PROCESS_DIR, exist_ok=True)
-    os.makedirs(Path(f"{cfg.OUTPUT_DIR}/videos/yt"), exist_ok=True)
+    os.makedirs(Path(r"{cfg.OUTPUT_DIR}/videos/yt"), exist_ok=True)
     logger.info("Directories prepared")

@@ -11,7 +11,7 @@ from src.utils import Elem
 from src.yt_download import download_yt_video
 
 STORYBLOCKS_BASE_URL = "https://www.storyblocks.com"
-STORYBLOCKS_SEARCH_URL = f"{STORYBLOCKS_BASE_URL}/api/video/search"
+STORYBLOCKS_SEARCH_URL = r"{STORYBLOCKS_BASE_URL}/api/video/search"
 
 
 @dataclass
@@ -42,7 +42,7 @@ def get_storyblocks_video_urls(
     }
     response = get(STORYBLOCKS_SEARCH_URL, params=params, cookies=cookies)
     if response.status_code != 200:
-        raise HTTPException(f"Bad status code {response.status_code}")
+        raise HTTPException(r"Bad status code {response.status_code}")
 
     n_results = min(n_results, len(response.json()["data"]["stockItems"]))
 
@@ -125,7 +125,7 @@ def save_storyblocks(
         videos.pop()
     # iterate through urls and save them in video folder
     for v_num, url in enumerate((video.url for video in videos)):
-        v_path = f"{file_output_dir}/videos/{n_paragraph}_{v_num}.mp4"
+        v_path = r"{file_output_dir}/videos/{n_paragraph}_{v_num}.mp4"
         download_storyblocks_video(url, cookies, v_path)
 
 
@@ -143,7 +143,7 @@ def download_storyblocks_video(url: str, cookies: dict, path: Union[str, Path]) 
     """
     response = get(url, cookies=cookies)
     if response.status_code != 200:
-        raise HTTPException(f"Bad status code {response.status_code}")
+        raise HTTPException(r"Bad status code {response.status_code}")
 
     with open(path, "wb") as file:
         file.write(response.content)

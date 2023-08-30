@@ -36,7 +36,7 @@ def run(file_path: Path):
     # split data into pieces
     splitted_output = split_openai_output(openai_output)
 
-    file_output_dir = f"{cfg.PROCESS_DIR}/{file_path.stem}"
+    file_output_dir = r"{cfg.PROCESS_DIR}/{file_path.stem}"
     # save video metadata into folder
     generate_video_meta(splitted_output, file_output_dir)
 
@@ -50,8 +50,8 @@ def run(file_path: Path):
     # make_video(
     #     splitted_output,
     #     get_audio(file_output_dir),
-    #     get_stock_videos(f"{file_output_dir}/videos"),
-    #     f"{OUTPUT_DIR}/{file_path.stem}.mp4",
+    #     get_stock_videos(r"{file_output_dir}/videos"),
+    #     r"{OUTPUT_DIR}/{file_path.stem}.mp4",
     # )
 
 
@@ -59,7 +59,7 @@ def main():
     logger.info("App start")
     prep_directories()
     for file_path in get_source_files(cfg.SOURCE_DIR):
-        logger.info(f"Processing: {file_path}")
+        logger.info(r"Processing: {file_path}")
         run_completed = False
         while not run_completed:
             # try:

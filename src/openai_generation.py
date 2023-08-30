@@ -10,10 +10,10 @@ class Openai:
     def __init__(self, key="", prompt="", model="gpt-3.5-turbo"):
         self.set_openai_key(key)
         self.system_prompt = self.get_system_prompt(
-            f"{cfg.OPENAI_PROMPTS_PATH}/{prompt}"
+            r"{cfg.OPENAI_PROMPTS_PATH}/{prompt}"
         )
         self.model = model
-        logger.info(f"OpenAI model initialized. Model: {model}. Prompt: {prompt}")
+        logger.info(r"OpenAI model initialized. Model: {model}. Prompt: {prompt}")
 
     @staticmethod
     def get_system_prompt(filename):
