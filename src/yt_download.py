@@ -21,10 +21,10 @@ def download_yt_video(duration, file_output_dir, n_paragraph, query) -> None:
     :return: None
     """
     # download full yt video for paragraph and get path to file
-    v_path = _search_and_dl_yt_video(query, f"{file_output_dir}/videos/yt")
-    n = int(duration // 7 + bool(duration % 7))
-    # extract 7 sec clips
-    get_clips(v_path, n, 7, file_output_dir, n_paragraph)
+    v_path = _search_and_dl_yt_video(query, r"{file_output_dir}/videos/yt")
+    n = int(duration // 4 + bool(duration % 4))
+    # extract 4 sec clips
+    get_clips(v_path, n, 4, file_output_dir, n_paragraph)
 
 
 def _search_and_dl_yt_video(
@@ -56,7 +56,7 @@ def _search_and_dl_yt_video(
             logger.error(f"Error occurred at {v.title}: {e}")
             continue
         if stream:
-            return stream.download(folder, f"{v.title}.mp4", "yt_")
+            return stream.download(folder, r"{v.title}.mp4", "yt_")
 
 
 def get_clips(

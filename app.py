@@ -14,7 +14,11 @@ from src.utils import (
 )
 from src.video import get_audio, get_stock_videos, make_video
 from src.video_processing import save_videos
-
+from moviepy.editor import *
+import os
+import pyttsx3
+import soundfile as sf
+engine = pyttsx3.init()
 cookies = get_cookies()
 
 
@@ -43,8 +47,54 @@ def run(file_path: Path):
     # generate audio
     # audio_duration = generate_voice_over(splitted_output, file_output_dir)
 
+    audio_data = open("C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\video_text.txt","r")
+
+    engine.setProperty('rate', 175)  # setting up new voice rate
+
+    """VOLUME"""
+    engine.setProperty('volume', 1.0)  # setting up volume level  between 0 and 1
+
+    """VOICE"""
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[0].id)  # changing index, changes voices. 1 for female
+
+    """PITCH"""  # Print current pitch value
+    engine.setProperty('pitch', 100)
+
+    engine.say("Step into the world of ancient Egypt, where the pyramids of Giza stood tall as architectural marvels")
+    engine.runAndWait()
+    engine.stop()
+
+    audio_data = audio_data.read()
+    print(audio_data)
+
+    logger.info(audio_data)
+    engine.save_to_file(audio_data,'C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\audio.mp3')
+    engine.runAndWait()
+
+    temp = sf.SoundFile("C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\audio.mp3")
+    temp.frames / temp.samplerate
+
     # save videos for further use
-    save_videos(splitted_output, 40.00, file_output_dir, cookies, cfg.YT_PROBA)
+    save_videos(splitted_output, temp.frames / temp.samplerate, file_output_dir, cookies, cfg.YT_PROBA)
+
+    directory = os.fsencode(
+        "C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\videos")
+
+    clips = []
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        logger.info(filename)
+        if filename.endswith(".mp4"):
+            clips.append(VideoFileClip("C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\videos\\"+filename))
+        else:
+            continue
+    final = concatenate_videoclips(clips, method="compose")
+
+    # writing the video into a file / saving the combined video
+    final.write_videofile(
+        "C:\\Users\\arvin\\Documents\\GitHub\\Open Source\\text2youtube\\{cfg.PROCESS_DIR}\\{file_path.stem}\\videos\\finalCut.mp4",
+        codec="libx264", audio_codec="aac", fps=30)
 
     # generate video
     # make_video(
